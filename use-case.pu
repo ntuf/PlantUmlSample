@@ -1,0 +1,21 @@
+@startuml
+:Main Admin: as Admin
+(アプリケーションを使用する) as (Use)
+
+ユーザー -> (スタート)
+ユーザー --> (Use)
+
+Admin ---> (Use)
+
+note right of Admin : This is an example.
+
+note right of (Use)
+  メモは複数行に
+  記載可能
+end note
+
+note "このメモは複数のオブジェクトに\n関連づけられている" as N2
+(スタート) .. N2
+N2 .. (Use)
+
+@enduml
