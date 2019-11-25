@@ -1,0 +1,23 @@
+@startuml
+
+class User {
+  username
+  password
+  +publicmember()
+  -privatemember()
+  #protectedmember()
+  ~packagemember()
+}
+
+class Group {
+  name
+}
+
+class Member {
+  roles
+}
+
+User .. Member
+Group .. Member
+
+@enduml
