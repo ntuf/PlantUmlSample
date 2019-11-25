@@ -1,21 +1,29 @@
 @startuml
-:Main Admin: as Admin
-(アプリケーションを使用する) as (Use)
+title <size:18>ユースケース図のサンプル</size>
+left to right direction
 
-ユーザー -> (スタート)
-ユーザー --> (Use)
+actor :社員: as user
+actor :総務: as admin
+actor :データベース: as DB
+note "次のバージョンで\n対応" as next
 
-Admin ---> (Use)
+user <|-- admin : 汎化
 
-note right of Admin : This is an example.
+package "勤怠管理" {
+usecase (<u>勤怠を入力する</u>\n拡張点\n 早退、遅刻) as input
 
-note right of (Use)
-  メモは複数行に
-  記載可能
-end note
+user -- (出社時間を登録する)
+(出社時間を登録する) -- input
+input <.. (早退理由を入力する) : <<extend>>
+(早退理由を入力する) .. next
+(早退理由を入力する) -- DB
+user -- (退社時間を登録する)
+(退社時間を登録する) -- input
+input ..> (社員を認証する) : <<include>>
+(社員を認証する) -- DB
+admin -- (勤怠を変更する)
+(勤怠を変更する) ..> (社員を認証する) : <<include>>
+(勤怠を変更する) -- DB
 
-note "このメモは複数のオブジェクトに\n関連づけられている" as N2
-(スタート) .. N2
-N2 .. (Use)
-
+}
 @enduml
